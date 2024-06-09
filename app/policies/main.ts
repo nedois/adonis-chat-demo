@@ -14,4 +14,5 @@
 
 export const policies = {
   GroupPolicy: () => import('#policies/group_policy'),
+  GroupMemberPolicy: () => import('#policies/group_member_policy'),
 }
