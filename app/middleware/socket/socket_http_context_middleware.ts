@@ -13,6 +13,10 @@ const SocketHttpContextMiddleware: SocketMiddleware = async (socket, next) => {
     app.container.createResolver()
   )
 
+  // Initialize auth
+  const auth = await app.container.make('auth.manager')
+  context.auth = auth.createAuthenticator(context)
+
   socket.context = context
 
   next()
