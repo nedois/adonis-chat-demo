@@ -12,7 +12,7 @@ export default class GroupMessagesController {
 
     await bouncer.with('GroupMessagePolicy').authorize('index', group)
 
-    return group.related('messages').query().paginate(page, limit)
+    return group.related('messages').query().preload('sender').paginate(page, limit)
   }
 
   async store({ auth, params, request, bouncer }: HttpContext) {
