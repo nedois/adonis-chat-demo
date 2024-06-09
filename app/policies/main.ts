@@ -13,6 +13,7 @@
 */
 
 export const policies = {
+  GroupMessagePolicy: () => import('#policies/group_message_policy'),
   GroupPolicy: () => import('#policies/group_policy'),
   GroupMemberPolicy: () => import('#policies/group_member_policy'),
 }

@@ -1,7 +1,7 @@
-import User from '#models/user'
-import Group from '#models/group'
 import { BasePolicy } from '@adonisjs/bouncer'
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
+import User from '#models/user'
+import Group from '#models/group'
 
 type Resource = { member: User; group: Group }
 

@@ -6,9 +6,8 @@ export default class GroupMembersController {
   async index({ params, request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
-    const groupId = params.group_id
 
-    const group = await Group.findOrFail(groupId)
+    const group = await Group.findOrFail(params.group_id)
 
     return group.related('members').query().paginate(page, limit)
   }
@@ -16,9 +15,8 @@ export default class GroupMembersController {
   /** Join group */
   async store({ auth, params }: HttpContext) {
     const user = auth.getUserOrFail()
-    const groupId = params.group_id
 
-    const group = await Group.findOrFail(groupId)
+    const group = await Group.findOrFail(params.group_id)
 
     // Use sync instead of attach to duplicate error constraint
     await group.related('members').sync([user.id], false)
@@ -28,11 +26,10 @@ export default class GroupMembersController {
 
   /** Remove a member */
   async destroy({ params, bouncer }: HttpContext) {
-    const groupId = params.group_id
     const memberId = params.id
 
     const [group, member] = await Promise.all([
-      Group.findOrFail(groupId),
+      Group.findOrFail(params.group_id),
       User.findOrFail(memberId),
     ])
 
