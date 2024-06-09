@@ -15,10 +15,12 @@ class Websocket {
     this.booted = true
 
     const adonisServer = await app.container.make('server')
-    const socketConfig = app.config.get<ServerOptions>('socket_io')
+    const socketConfig = app.config.get<ServerOptions>('socket')
 
     this.io = new Server(adonisServer.getNodeServer(), socketConfig)
   }
 }
+
+export type SocketMiddleware = Parameters<Websocket['io']['use']>[0]
 
 export default new Websocket()
