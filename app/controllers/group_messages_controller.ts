@@ -1,4 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import emitter from '@adonisjs/core/services/emitter'
 import Group from '#models/group'
 import Message from '#models/message'
 import * as validator from '#validators/group_message'
@@ -16,14 +17,18 @@ export default class GroupMessagesController {
   }
 
   async store({ auth, params, request, bouncer }: HttpContext) {
-    const user = auth.getUserOrFail()
+    const sender = auth.getUserOrFail()
     const data = await request.validateUsing(validator.store)
     const group = await Group.findOrFail(params.group_id)
 
     await bouncer.with('GroupMessagePolicy').authorize('store', group)
 
-    const message = new Message().merge({ ...data, senderId: user.id })
+    const message = new Message().merge({ ...data, senderId: sender.id })
 
-    return group.related('messages').create(message)
+    await group.related('messages').create(message)
+
+    emitter.emit('group:messages:created', { message, group })
+
+    return message
   }
 }

@@ -1,4 +1,4 @@
-name: adonis-broadcast
+name: adonis-chat
 
 services:
   postgres:
