@@ -7,11 +7,12 @@ This repository contains a simple demo application that integrates AdonisJS with
 - [x] Socket.io singleton server
 - [x] Integration with `@adonisjs/auth`
 - [x] User authentication (register, login)
-- [x] Groups:
-  - [x] Create a group
-  - [x] Join a group
-  - [x] Leave a group
-  - [x]
+- [x] Groups (create and delete)
+- [x] Group members (list, join, leave, remove)
+- [x] Group messages (list, send)
+- [ ] Private messages (list, send)
+- [ ] Realtime notifications
+- [ ] Inertia+React frontend
 
 ## WIP
 
